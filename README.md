@@ -1,7 +1,7 @@
 # Distributed-ML-Experiments 
 
 
-#**How To Set Up Apache Spark Mllib And Run The Experiments:**
+# **How To Set Up Apache Spark Mllib And Run The Experiments:**
 
 **I. Install Python:**
 
@@ -60,7 +60,7 @@ pip install pyspark
 
 
 
-#**How To Set Up Tensorflow Distributed And Run The Experiments:**
+# **How To Set Up Tensorflow Distributed And Run The Experiments:**
 
 **I. Install Python:**
 Download and install Python from https://www.python.org/downloads/  if it's not already installed. Verify installation by running python --version in CMD.
@@ -92,7 +92,7 @@ python -c "import tensorflow as tf; print(tf.__version__)"
 
 
 
-#**How To Setup Ray And Run The Experiments:**
+# **How To Setup Ray And Run The Experiments:**
 
 In order to replicate the experiments, the following steps can be followed:
 **I. Ensure Python is Installed:**
