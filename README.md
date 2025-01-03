@@ -2,12 +2,15 @@
 
 
 How To Set Up Apache Spark Mllib And Run The Experiments:
+
 I. Install Python:
 •	Download and install Python from https://www.python.org/downloads/  if it's not already installed. 
 •	Verify installation by running python --version in CMD.
+
 II. Install Java:
 •	Apache Spark requires Java, so ensure you have Java 8 or later installed.
 •	You can check if Java is installed by running the command java -version in the CMD.
+
 III. Set Python and Java in the Environment Variables: To set up Python and Java in the environment variables:
 On Windows:
 •	Python:
@@ -22,15 +25,21 @@ On Windows:
 1.	Find the Java installation directory, e.g., C:\Program Files\Java\jdk-11.0.2.
 2.	Follow the same steps as above to add the path to the Java bin directory (e.g., C:\Program Files\Java\jdk-11.0.2\bin) under Path.
 3.	Click OK.
+
 IV. Install Apache Spark:
 •	Download and install Apache Spark from Apache Spark official website.
 •	Unzip it and set the SPARK_HOME environment variable to the folder where you extracted Spark.
+
 V. Install Hadoop:
 •	If you want to use Hadoop with Spark, download Hadoop from Apache Hadoop website.
 •	Set the HADOOP_HOME environment variable similarly.
+
+
 VI. Install PySpark:
 •	Install PySpark, the Python API for Spark, using the following command:
 pip install pyspark
+
+
 VII. Run the Experiments:
 •	Using MLlib in Apache Spark, define the machine learning model you wish to train (e.g., regression, classification).
 •	Load your dataset into Apache Spark.
