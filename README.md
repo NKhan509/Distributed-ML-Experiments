@@ -117,3 +117,79 @@ pip install "ray[serve]"  # For model serving
 Run the codes included in the GitHub repository either on your local machine or on Google Colab. If you do not have access to multiple GPUs then run the resource scalability experiment on Google Colab.
 
 
+
+# Setting Up PyTorch and Running Experiments in Google Colab
+
+**Step 1: Open Google Colab**
+1.	Go to Google Colab.
+2.	Create a new notebook.
+   
+**Step 2: Install PyTorch (if required)**
+1.	By default, PyTorch is pre-installed in Colab. Check the version:
+import torch
+print(torch.__version__)
+2.	If you need a specific version, install it:
+o	For GPU support (CUDA 11.8):
+!pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+o	For CPU-only version:
+!pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+
+**Step 3: Verify Installation**
+1.	Run the following code to ensure PyTorch and GPU are correctly set up:
+import torch
+print(f"PyTorch version: {torch.__version__}")
+print(f"CUDA available: {torch.cuda.is_available()}")
+if torch.cuda.is_available():
+print(f"GPU Name: {torch.cuda.get_device_name(0)}")
+
+**Step 4: Enable GPU in Colab**
+1.	Go to Runtime > Change runtime type.
+2.	Under Hardware accelerator, select GPU and click Save.
+
+**Step 5: Run a Simple Experiment**
+Here’s an example experiment to ensure everything is working:
+
+
+1.	Create a small neural network:
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+•	Define a simple model
+class SimpleNN(nn.Module):
+    def __init__(self):
+        super(SimpleNN, self).__init__()
+        self.fc = nn.Linear(2, 1)
+    def forward(self, x):
+        return self.fc(x)
+model = SimpleNN().to('cuda' if torch.cuda.is_available() else 'cpu')
+2.	Generate synthetic data:
+import torch
+
+•	Create dummy data
+inputs = torch.tensor([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]], device='cuda' if torch.cuda.is_available() else 'cpu')
+targets = torch.tensor([[1.0], [2.0], [3.0]], device='cuda' if torch.cuda.is_available() else 'cpu')
+3.	Train the model:
+•	Define loss and optimizer
+criterion = nn.MSELoss()
+optimizer = optim.SGD(model.parameters(), lr=0.01)
+
+•	Training loop
+for epoch in range(100):
+    optimizer.zero_grad()
+    outputs = model(inputs)
+    loss = criterion(outputs, targets)
+    loss.backward()
+    optimizer.step()
+    if (epoch + 1) % 10 == 0:
+        print(f'Epoch [{epoch+1}/100], Loss: {loss.item():.4f}')
+
+4.	Test the model:
+test_input = torch.tensor([[7.0, 8.0]], device='cuda' if torch.cuda.is_available() else 'cpu')
+prediction = model(test_input)
+print(f"Prediction for input {test_input.cpu().numpy()}: {prediction.item():.4f}")
+
+**Step 6: Run Your Experiments**
+Now that PyTorch is set up, you can proceed with your experiments. Modify the model, dataset, or training loop as needed based on your use case (e.g., MNIST, CIFAR-10, or custom datasets).
+
+
