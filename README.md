@@ -58,17 +58,22 @@ VII. Run the Experiments:
 
 
 How To Set Up Tensorflow Distributed And Run The Experiments:
+
 I. Install Python:
 Download and install Python from https://www.python.org/downloads/  if it's not already installed. Verify installation by running python --version in CMD.
+
 II. Install TensorFlow:
 Run the command pip install tensorflow in CMD to install TensorFlow.
+
 III. Verify TensorFlow Installation:
 Confirm successful installation by running:
 python -c "import tensorflow as tf; print(tf.__version__)"
+
 IV. Install Additional Libraries for TensorFlow Distributed:
 •	pip install tensorflow (for core TensorFlow)
 •	pip install tensorflow_datasets (for datasets)
 •	pip install tensorflow_addons (for extra utilities)
+
 V. Run the Experiments:
 •	Load your dataset and define the model within the strategy scope.
 •	Run the code on your local machine or Google Colab for the Scalability with Number of Nodes/GPUs experiment. Use Google Colab if you don't have multiple GPUs available locally.
@@ -85,22 +90,27 @@ V. Run the Experiments:
 
 
 How To Setup Ray And Run The Experiments:
+
 In order to replicate the experiments, the following steps can be followed:
 I. Ensure Python is Installed:
 Ensure python is installed in the PC. Run the following command in the command line terminal (CMD) to check:
 python –version
+
 II. Install Ray
 Install Ray by running the following command in CMD:
 pip install ray
+
 III. Verify Ray Installation
 Check if Ray is properly installed by entering the following code in CMD:
 python -c "import ray; print(ray.__version__)"
+
 IV. Install Additional Libraries for Ray
 Install the following libraries to integrate features of Ray in your program:
 pip install "ray[default]"
 pip install "ray[tune]"  # For hyperparameter tuning
 pip install "ray[serve]"  # For model serving
+
 V. Run the Experiments
-I.	Run the codes included in the GitHub repository either on your local machine or on Google Colab. If you do not have access to multiple GPUs then run the resource scalability experiment on Google Colab.
+Run the codes included in the GitHub repository either on your local machine or on Google Colab. If you do not have access to multiple GPUs then run the resource scalability experiment on Google Colab.
 
 
