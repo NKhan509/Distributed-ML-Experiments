@@ -1,0 +1,18 @@
+Ray is the most efficient platform overall for quick training and 
+low memory usage, making it ideal for applications where speed and 
+resource efficiency are critical.
+
+TensorFlow is best for scenarios where maximum throughput is needed, 
+especially with larger datasets. Apache Spark MLlib is a good compromise 
+for distributed training scenarios where moderate performance suffices. 
+PyTorch Distributed is less efficient in this comparison and may require 
+optimization or alternative configurations.
+
+However, for resource scalability, TensorFlow Distributed is the best 
+performer in this experiment considering speed, accuracy, and GPU utilization. 
+On the other hand, for tasks requiring low communication overhead, PyTorch is 
+the best option. Apache could be suitable for workloads where asynchronous performance 
+is critical for larger datasets, but it may not be ideal for latency-sensitive tasks.
+
+Apache Spark showed the weakest fault tolerance in this experiment. 
+Whereas,  best fault tolerance was demonstrated by TensorFlow Distributed.
