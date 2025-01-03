@@ -23,6 +23,7 @@ On Windows:
 5.	Add the path to the Python installation directory (e.g. C:\Users\PMLS\AppData\Local\Microsoft\WindowsApps\python.exe).
 6.	Add the path to the Scripts folder inside the Python installation directory (e.g. C:\Users\PMLS\AppData\Local\Microsoft\WindowsApps\python.exe).
 7.	Click OK.
+
 **•	Java:**
 1.	Find the Java installation directory, e.g., C:\Program Files\Java\jdk-11.0.2.
 2.	Follow the same steps as above to add the path to the Java bin directory (e.g., C:\Program Files\Java\jdk-11.0.2\bin) under Path.
