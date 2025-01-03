@@ -189,7 +189,8 @@ test_input = torch.tensor([[7.0, 8.0]], device='cuda' if torch.cuda.is_available
 prediction = model(test_input)
 print(f"Prediction for input {test_input.cpu().numpy()}: {prediction.item():.4f}").
 
-**Step 6: Run Your Experiments**
+
+**Step 6: Run Your Experiments:**
 Now that PyTorch is set up, you can proceed with your experiments. Modify the model, dataset, or training loop as needed based on your use case (e.g., MNIST, CIFAR-10, or custom datasets).
 
 
