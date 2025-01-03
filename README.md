@@ -3,7 +3,8 @@
 
 How To Set Up Apache Spark Mllib And Run The Experiments:
 
-I. Install Python:
+**I. Install Python:**
+
 •	Download and install Python from https://www.python.org/downloads/  if it's not already installed. 
 •	Verify installation by running python --version in CMD.
 
