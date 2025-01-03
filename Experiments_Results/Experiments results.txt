@@ -1,0 +1,557 @@
+Tenserflow Distributed Experiment
+Scalability with Data Size: Measure training time, memory usage, and throughput as the dataset size increases.
+
+Testing with dataset size ratio: 0.1
+Testing with dataset size ratio: 0.25
+Testing with dataset size ratio: 0.5
+Testing with dataset size ratio: 0.75
+Testing with dataset size ratio: 1.0
+
+Results:
+Dataset Size Ratio: 0.10
+  Training Time (s): 22.41
+  Memory Usage (MB): 30.12
+  Throughput (samples/s): 2677.28
+----------------------------------------
+Dataset Size Ratio: 0.25
+  Training Time (s): 36.04
+  Memory Usage (MB): 28.02
+  Throughput (samples/s): 4162.44
+----------------------------------------
+Dataset Size Ratio: 0.50
+  Training Time (s): 37.37
+  Memory Usage (MB): 13.88
+  Throughput (samples/s): 8027.81
+----------------------------------------
+Dataset Size Ratio: 0.75
+  Training Time (s): 53.12
+  Memory Usage (MB): 13.93
+  Throughput (samples/s): 8471.73
+----------------------------------------
+Dataset Size Ratio: 1.00
+  Training Time (s): 69.03
+  Memory Usage (MB): 19.45
+  Throughput (samples/s): 8692.19
+
+
+Scalability with Number of Nodes/GPUs: Evaluate how training speed and resource utilization improve with additional compute resources.
+2025-01-03 20:29:43,469 (run_experiment pid=18500) Training on device: /CPU:0
+C:\Users\PMLS\anaconda3\Lib\site-packages\keras\src\layers\reshaping\flatten.py:37: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(**kwargs)
+Epoch 1/5
+469/469 ━━━━━━━━━━━━━━━━━━━━ 2s 2ms/step - accuracy: 0.7518 - loss: 0.7415
+Epoch 2/5
+469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.8569 - loss: 0.4090
+Epoch 3/5
+469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.8691 - loss: 0.3688
+Epoch 4/5
+469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.8775 - loss: 0.3405
+Epoch 5/5
+469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.8850 - loss: 0.3155
+2025-01-03 20:29:51,761 (run_experiment pid=18500) Training time on /CPU:0: 7.42 seconds
+2025-01-03 20:29:51,762 (run_experiment pid=18500) Test accuracy on /CPU:0: 0.8631
+2025-01-03 20:29:51,763 (run_experiment pid=18500) Training on device: /GPU:0
+Epoch 1/5
+469/469 ━━━━━━━━━━━━━━━━━━━━ 2s 2ms/step - accuracy: 0.7474 - loss: 0.7360
+Epoch 2/5
+469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.8539 - loss: 0.4174
+Epoch 3/5
+469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 3ms/step - accuracy: 0.8676 - loss: 0.3739
+Epoch 4/5
+469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 3ms/step - accuracy: 0.8783 - loss: 0.3440
+Epoch 5/5
+469/469 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.8856 - loss: 0.3143
+2025-01-03 20:29:59,171 (run_experiment pid=18500) Training time on /GPU:0: 6.85 seconds
+2025-01-03 20:29:59,172 (run_experiment pid=18500) Test accuracy on /GPU:0: 0.8705
+2025-01-03 20:29:59,173 
+(run_experiment pid=18500) Comparison:
+2025-01-03 20:29:59,174 (run_experiment pid=18500) Training time without GPU: 7.42 seconds
+2025-01-03 20:29:59,174 (run_experiment pid=18500) Training time with GPU: 6.85 seconds
+2025-01-03 20:29:59,176 (run_experiment pid=18500) Speedup: 1.08x
+2025-01-03 20:29:59,177 (run_experiment pid=18500) Accuracy on CPU: 0.8631
+2025-01-03 20:29:59,178 (run_experiment pid=18500) Accuracy on GPU: 0.8705
+
+Fault Tolerance and Recovery: Test how platforms handle node failures and the impact on training continuation and model accuracy.
+
+Num GPUs Available:  0
+Restoring from checkpoint: ./fault_tolerance_checkpoints\ckpt-15
+
+Normal training...
+469/469 - 8s - 18ms/step - accuracy: 0.9915 - loss: 0.0273
+Accuracy before failure (Epoch 3): 0.9735
+Simulating failure at epoch 4
+Error during training: Simulated failure during training
+Recovering and resuming training...
+Resuming at epoch 4
+Resuming at epoch 5
+
+Training time (including recovery): 21.30 seconds
+Accuracy before failure: 0.9735
+Final accuracy after recovery: 0.9735
+
+Communication Overhead: Analyze network overhead and latency for synchronous vs. asynchronous training.
+
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.10
+  Synchronous Training Time (s): 1.81
+  Synchronous Worker Latency (s): 0.0003
+  Asynchronous Training Time (s): 1.44
+  Asynchronous Worker Latency (s): 0.0002
+----------------------------------------
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.25
+  Synchronous Training Time (s): 2.32
+  Synchronous Worker Latency (s): 0.0002
+  Asynchronous Training Time (s): 2.50
+  Asynchronous Worker Latency (s): 0.0002
+----------------------------------------
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.50
+  Synchronous Training Time (s): 3.54
+  Synchronous Worker Latency (s): 0.0001
+  Asynchronous Training Time (s): 4.87
+  Asynchronous Worker Latency (s): 0.0002
+----------------------------------------
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.75
+  Synchronous Training Time (s): 5.34
+  Synchronous Worker Latency (s): 0.0001
+  Asynchronous Training Time (s): 5.98
+  Asynchronous Worker Latency (s): 0.0001
+----------------------------------------
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 1.00
+  Synchronous Training Time (s): 7.19
+  Synchronous Worker Latency (s): 0.0001
+  Asynchronous Training Time (s): 7.75
+  Asynchronous Worker Latency (s): 0.0001
+ 
+Ray Experiment
+
+Scalability with Data Size: Measure training time, memory usage, and throughput as the dataset size increases.
+
+Testing with dataset size ratio: 0.10
+Testing with dataset size ratio: 0.25
+Testing with dataset size ratio: 0.50
+Testing with dataset size ratio: 0.75
+Testing with dataset size ratio: 1.00
+
+Results:
+Dataset Size Ratio: 0.10
+  Training Time (s): 0.92
+  Memory Usage (MB): 12.79
+  Throughput (samples/s): 1082.71
+----------------------------------------
+Dataset Size Ratio: 0.25
+  Training Time (s): 1.01
+  Memory Usage (MB): 0.02
+  Throughput (samples/s): 2485.29
+----------------------------------------
+Dataset Size Ratio: 0.50
+  Training Time (s): 1.29
+  Memory Usage (MB): 0.07
+  Throughput (samples/s): 3883.77
+----------------------------------------
+Dataset Size Ratio: 0.75
+  Training Time (s): 1.81
+  Memory Usage (MB): 0.13
+  Throughput (samples/s): 4139.68
+----------------------------------------
+Dataset Size Ratio: 1.00
+  Training Time (s): 2.49
+  Memory Usage (MB): 0.03
+  Throughput (samples/s): 4016.57
+----------------------------------------
+
+
+Scalability with Number of Nodes/GPUs: Evaluate how training speed and resource utilization improve with additional compute resources.
+(run_experiment pid=6331) Training time without GPU: 919.96 seconds
+(run_experiment pid=6331) Starting experiment...
+(run_experiment pid=6331) 2024-12-04 07:45:06.903119: I tensorflow/core/framework/local_rendezvous.cc:404] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+(run_experiment pid=6331) Training time on GPU: 949.26 seconds
+
+Fault Tolerance and Recovery: Test how platforms handle node failures and the impact on training continuation and model accuracy.
+
+Num GPUs Available:  1
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 8s 3ms/step - accuracy: 0.7502 - loss: 0.6888
+313/313 ━━━━━━━━━━━━━━━━━━━━ 2s 4ms/step - accuracy: 0.8661 - loss: 0.3856
+
+Normal training...
+Training time: 14.72 seconds
+Final accuracy (without failure): 0.8601
+
+Epoch 1:
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 7s 2ms/step - accuracy: 0.7430 - loss: 0.7097
+
+Epoch 2:
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.8750 - loss: 0.3436
+
+Epoch 3:
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.8943 - loss: 0.2883
+
+Epoch 4:
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.9069 - loss: 0.2534
+Simulating failure at epoch 4
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 4s 2ms/step - accuracy: 0.9130 - loss: 0.2353
+Error during training: Simulated failure during training at epoch 4
+Restoring from checkpoint: ./fault_tolerance_checkpoints/ckpt-03.weights.h5
+Resuming at epoch 4
+/usr/local/lib/python3.10/dist-packages/keras/src/saving/saving_lib.py:713: UserWarning: Skipping variable loading for optimizer 'adam', because it has 2 variables whereas the saved optimizer has 22 variables. 
+  saveable.load_own_variables(weights_store.get(inner_path))
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 3s 2ms/step - accuracy: 0.9038 - loss: 0.2619
+Training time (including recovery): 35.09 seconds
+
+Accuracy before failure (Epoch 4): 0.9154333472251892
+Accuracy after recovery: 0.9062
+
+Communication Overhead: Analyze network overhead and latency for synchronous vs. asynchronous training.
+
+Num GPUs Available:  1
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.10
+  Synchronous Training Time (s): 19.46
+  Synchronous Worker Latency (s): 0.1905
+----------------------------------------
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.10
+  Asynchronous Training Time (s): 20.47
+  Asynchronous Worker Latency (s): 0.1593
+----------------------------------------
+Training time with synchronous mode: 19.46 seconds
+Training time with asynchronous mode: 20.47 seconds
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.25
+  Synchronous Training Time (s): 20.25
+  Synchronous Worker Latency (s): 0.1994
+----------------------------------------
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.25
+  Asynchronous Training Time (s): 20.47
+  Asynchronous Worker Latency (s): 0.1899
+----------------------------------------
+Training time with synchronous mode: 20.25 seconds
+Training time with asynchronous mode: 20.47 seconds
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.50
+  Synchronous Training Time (s): 17.54
+  Synchronous Worker Latency (s): 0.1723
+----------------------------------------
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.50
+  Asynchronous Training Time (s): 20.54
+  Asynchronous Worker Latency (s): 0.2048
+----------------------------------------
+Training time with synchronous mode: 17.54 seconds
+Training time with asynchronous mode: 20.54 seconds
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.75
+  Synchronous Training Time (s): 17.46
+  Synchronous Worker Latency (s): 0.1715
+----------------------------------------
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.75
+  Asynchronous Training Time (s): 21.53
+  Asynchronous Worker Latency (s): 0.2146
+----------------------------------------
+Training time with synchronous mode: 17.46 seconds
+Training time with asynchronous mode: 21.53 seconds
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 1.00
+  Synchronous Training Time (s): 20.71
+  Synchronous Worker Latency (s): 0.1723
+----------------------------------------
+INFO:tensorflow:Using MirroredStrategy with devices ('/job:localhost/replica:0/task:0/device:CPU:0',)
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 1.00
+  Asynchronous Training Time (s): 40.94
+  Asynchronous Worker Latency (s): 0.2118
+----------------------------------------
+Training time with synchronous mode: 20.71 seconds
+Training time with asynchronous mode: 40.94 seconds
+
+
+
+Apache Spark MLlib Experiment
+
+Experiments to be Conducted 1. Scalability with Data Size: Measure training time, memory usage, and throughput as the dataset size increases.
+
+Testing with dataset ratio: 0.10
+
+Testing with dataset ratio: 0.25
+
+Testing with dataset ratio: 0.50
+
+Testing with dataset ratio: 0.75
+
+Testing with dataset ratio: 1.00
+
+Scalability Results:
+Dataset Ratio: 0.10
+  Training Time (s): 5.80
+  Memory Usage (MB): -21.91
+  Throughput (samples/sec): 1020.15
+  Accuracy: 0.8213
+----------------------------------------
+Dataset Ratio: 0.25
+  Training Time (s): 6.20
+  Memory Usage (MB): -13.05
+  Throughput (samples/sec): 2414.55
+  Accuracy: 0.8090
+----------------------------------------
+Dataset Ratio: 0.50
+  Training Time (s): 9.57
+  Memory Usage (MB): 7.88
+  Throughput (samples/sec): 3141.70
+  Accuracy: 0.8083
+----------------------------------------
+Dataset Ratio: 0.75
+  Training Time (s): 11.01
+  Memory Usage (MB): -145.54
+  Throughput (samples/sec): 4099.39
+  Accuracy: 0.8125
+----------------------------------------
+Dataset Ratio: 1.00
+  Training Time (s): 12.52
+  Memory Usage (MB): -53.21
+  Throughput (samples/sec): 4792.66
+  Accuracy: 0.8123
+----------------------------------------
+
+
+Scalability with Number of Nodes/GPUs: Evaluate how training speed and resource utilization improve with additional compute resources.
+
+2025-01-03 20:24:01,691 Starting data preprocessing...
+2025-01-03 20:24:10,727 Data preprocessing complete.
+2025-01-03 20:24:38,441 Starting experiment...
+2025-01-03 20:24:38,443 Training without GPU...
+2025-01-03 20:24:38,444 Loading data...
+2025-01-03 20:24:50,199 Data loading complete.
+2025-01-03 20:25:16,122 Training time without GPU: 25.83 seconds
+2025-01-03 20:25:16,123 Training with GPU...
+2025-01-03 20:25:16,124 Loading data...
+2025-01-03 20:25:20,826 Data loading complete.
+2025-01-03 20:25:34,635 Training time on GPU: 13.80 seconds
+2025-01-03 20:25:34,640 (run_experiment pid=3436) Training time without GPU: 25.83 seconds
+2025-01-03 20:25:34,640 (run_experiment pid=3436) Training time on GPU: 13.80 seconds
+
+Communication Overhead: Analyze network overhead and latency for synchronous vs. asynchronous training.
+
+Dataset Size Ratio: 0.10
+  Synchronous Training Time (s): 5.39
+  Synchronous Worker Latency (s): 5.3882
+  Asynchronous Training Time (s): 5.82
+  Asynchronous Worker Latency (s): 1.4560
+
+Dataset Size Ratio: 0.25
+  Synchronous Training Time (s): 7.12
+  Synchronous Worker Latency (s): 7.1212
+  Asynchronous Training Time (s): 8.23
+  Asynchronous Worker Latency (s): 2.0569
+
+Dataset Size Ratio: 0.50
+  Synchronous Training Time (s): 9.54
+  Synchronous Worker Latency (s): 9.5352
+  Asynchronous Training Time (s): 9.44
+  Asynchronous Worker Latency (s): 2.3608
+
+Dataset Size Ratio: 0.75
+  Synchronous Training Time (s): 12.37
+  Synchronous Worker Latency (s): 12.3654
+  Asynchronous Training Time (s): 11.46
+  Asynchronous Worker Latency (s): 2.8642
+
+Dataset Size Ratio: 1.00
+  Synchronous Training Time (s): 14.26
+  Synchronous Worker Latency (s): 14.2629
+  Asynchronous Training Time (s): 14.41
+  Asynchronous Worker Latency (s): 3.6015
+
+Fault Tolerance and Recovery: Test how platforms handle node failures and the impact on training continuation and model accuracy.
+Epoch 1...
+Epoch 2...
+Epoch 3...
+Epoch 4...
+Accuracy before failure (Epoch 4): 0.9735
+Error during training: Simulated failure during training
+Recovering and resuming training...
+
+Training time (including recovery): 15.22 seconds
+Accuracy before failure: 0.9735
+Final accuracy after recovery: 0.8123
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PyTorch Distributed Experiment
+
+Fault Tolerance and Recovery: Test how platforms handle node failures and the impact on training continuation and model accuracy.
+Normal training...
+Epoch 1...
+Epoch 1 - Loss: 1.6528
+Epoch 2...
+Epoch 2 - Loss: 1.5369
+Epoch 3...
+Epoch 3 - Loss: 1.5204
+Epoch 4...
+Epoch 4 - Loss: 1.5116
+Error during training: Simulated failure during training
+Recovering and resuming training...
+Epoch 1...
+Epoch 1 - Loss: 1.5038
+Epoch 2...
+Epoch 2 - Loss: 1.4985
+Epoch 3...
+Epoch 3 - Loss: 1.4940
+Epoch 4...
+Epoch 4 - Loss: 1.4894
+Epoch 5...
+Epoch 5 - Loss: 1.4864
+
+Training time (including recovery): 12.25 seconds
+Final accuracy after recovery: 0.9690
+
+Communication Overhead: Analyze network overhead and latency for synchronous vs. asynchronous training.
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.10
+  Synchronous Training Time (s): 1.31
+  Synchronous Worker Latency (s): 0.0002
+  Asynchronous Training Time (s): 1.36
+  Asynchronous Worker Latency (s): 0.0002
+----------------------------------------
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.25
+  Synchronous Training Time (s): 3.12
+  Synchronous Worker Latency (s): 0.0002
+  Asynchronous Training Time (s): 3.43
+  Asynchronous Worker Latency (s): 0.0002
+----------------------------------------
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.50
+  Synchronous Training Time (s): 6.84
+  Synchronous Worker Latency (s): 0.0002
+  Asynchronous Training Time (s): 7.25
+  Asynchronous Worker Latency (s): 0.0002
+----------------------------------------
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 0.75
+  Synchronous Training Time (s): 9.36
+  Synchronous Worker Latency (s): 0.0002
+  Asynchronous Training Time (s): 10.63
+  Asynchronous Worker Latency (s): 0.0002
+----------------------------------------
+
+Comparison of Synchronous vs Asynchronous Training:
+Dataset Size Ratio: 1.00
+  Synchronous Training Time (s): 13.09
+  Synchronous Worker Latency (s): 0.0002
+  Asynchronous Training Time (s): 14.44
+  Asynchronous Worker Latency (s): 0.0002
+
+Scalability with Number of Nodes/GPUs: Evaluate how training speed and resource utilization improve with additional compute resources.
+
+Training on device: cpu
+Training time on cpu: 64.80 seconds
+Communication time on cpu: 0.02 seconds
+Test accuracy on cpu: 0.8500
+Training on device: cuda
+Training time on cuda: 63.64 seconds
+Communication time on cuda: 0.45 seconds
+Test accuracy on cuda: 0.7981
+
+Comparison:
+Training time without GPU: 64.80 seconds
+Training time with GPU: 63.64 seconds
+Communication overhead on CPU: 0.02 seconds
+Communication overhead on GPU: 0.45 seconds
+Speedup: 1.02x
+Accuracy on CPU: 0.8500
+Accuracy on GPU: 0.7981
+Experiments to be Conducted 1. Scalability with Data Size: Measure training time, memory usage, and throughput as the dataset size increases.
+
+Testing with dataset size ratio: 0.1
+Testing with dataset size ratio: 0.25
+Testing with dataset size ratio: 0.5
+Testing with dataset size ratio: 0.75
+Testing with dataset size ratio: 1.0
+
+Results:
+Dataset Size Ratio: 0.10
+  Training Time (s): 14.16
+  Memory Usage (MB): -59.66
+  Throughput (samples/s): 4236.70
+----------------------------------------
+Dataset Size Ratio: 0.25
+  Training Time (s): 35.72
+  Memory Usage (MB): -44.86
+  Throughput (samples/s): 4199.61
+----------------------------------------
+Dataset Size Ratio: 0.50
+  Training Time (s): 71.09
+  Memory Usage (MB): -59.69
+  Throughput (samples/s): 4219.98
+----------------------------------------
+Dataset Size Ratio: 0.75
+  Training Time (s): 106.46
+  Memory Usage (MB): -44.61
+  Throughput (samples/s): 4227.02
+----------------------------------------
+Dataset Size Ratio: 1.00
+  Training Time (s): 139.80
+  Memory Usage (MB): -59.44
+  Throughput (samples/s): 4291.78
+----------------------------------------
